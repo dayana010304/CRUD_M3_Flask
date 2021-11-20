@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block titulo %} Usuarios {% endblock %}
+{% block body %}
+<div class="container">
+    <section class="section">
+        <div class="columns">
+            <div class="column">
+                <h3 class="is-size-3">Clientes</h3>
+                <a href="{{url_for('form_add_customer')}}" class="btn btn-primary">Agregar</a>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Numero de Identificacion</th>
+                            <th>Estado</th>
+                            <th>Teléfono</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer in customers %}
+                        <tr>
+                            <td>{{customer[1]}}</td>
+                            <td>{{customer[2]}}</td>
+                            <td>{{customer[3]}}</td>
+                            <td>{{customer[4]}}</td>
+                            <td>
+                                {# Pasar el id (lo que hay en user[0] #}
+                                <a href="{{url_for('edit_customer', id=customer[0])}}"
+                                    class="btn btn-success">Editar</a>
+                            </td>
+                            <td>
+                                <form action="{{url_for('delete_customer')}}" method="POST" onSubmit="return confirm('Está seguro de eliminar este cliente?');">
+                                    <input type="hidden" name="id" value="{{customer[0]}}">
+                                    <button class="btn btn-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

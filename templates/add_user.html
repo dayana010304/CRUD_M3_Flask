@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block titulo %}Agregar factura{% endblock %}
+{% block body %}
+    <div class="container">
+        <section class="section">
+            <div class="columns">
+                <div class="column is-one-third">
+                    <h3 class="is-size-3">Registro de Usuario</h3>
+                    <form action="{{url_for('save_user')}}" method="post">
+                        <label for="number">Nombre:</label>
+                        <input required type="text" class="form-control" placeholder="nombre" name="name" id="name">
+                        <label for="document">Email:</label>
+                        <input required type="text" class="form-control" placeholder="correo Electronico" name="email" id="email">
+                        <label for="date">password:</label>
+                        <input required type="text" class="form-control" placeholder="contraseña" name="passwd" id="passwd">
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                            <label for="Ufile">Imagen</label>
+                            <br>
+                            <input type="file" id="ufile" name="ufile" required accept=".jpg, .png">
+                            <br><br>
+
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                        <a href="{{url_for('invoices')}}" class="btn btn-primary">Volver</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
