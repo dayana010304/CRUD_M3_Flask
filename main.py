@@ -1,6 +1,6 @@
 from os import curdir
 import os
-from flask import Flask, render_template, session,url_for,request,redirect, flash
+from flask import Flask, app, render_template, session, url_for, request, redirect, flash
 from werkzeug.utils import secure_filename
 import customer_controller
 import invoice_controller
@@ -39,17 +39,15 @@ def customer():
 
 @app.route('/save_user', methods=['POST'])
 def save_user():
-    email = request.form['email']
-    passwd = request.form['passwd']
-    if user_controller.get_user(email, passwd): 
+    if request.method == 'POST': 
         email = request.form['email']
         name = request.form['name']
         passwd = request.form['passwd']
         user_controller.add_user(email, name, passwd)
-    else:
-        print ("error, el cliente no existe") 
-    return redirect('/form_add_user')
-
+        f = request.files['ufile']
+        filename = secure_filename(f.filename)
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect('/')
 
 @app.route('/form_add_customer')
 def form_add_customer():

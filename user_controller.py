@@ -14,11 +14,4 @@ def get_user( email, passwd):
         cursor.execute("SELECT * FROM users WHERE email=%s and passwd =%s",(email, passwd))
     cnn.commit()
     cnn.close()
-    
-def update_user( email, name, passwd):
-    cnn = get_connection()
-    with cnn.cursor() as cursor:
-        cursor.execute("UPDATE users SET name = %s, passwod = %s WHERE email = %s",(name, passwd, email))
-    cnn.commit()
-    cnn.close()
 
